@@ -1,10 +1,11 @@
-var mySql = require('mysql')
-var connection = mySql.createConnection({
+var cookieParser = require('cookie-parser');
+var mysql = require('mysql')
+var connection = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'',
-    database:'sprotdb'
-})
+    database:'sportsdb'
+});
 
 connection.connect(function(err){
     if(err) throw err;
