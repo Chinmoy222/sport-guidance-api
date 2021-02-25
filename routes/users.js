@@ -22,12 +22,12 @@ router.post('/signup', (req, res) => {
                   let user = {
                           "type":req.body.type,  //player, coach and user
                           "firstName":req.body.firstName,//for company its org name
-                          "lastName":req.body.lastName,
                           "dob":req.body.dob,
                           "email":req.body.email,
                           "phone":req.body.phone,
                           "password":hash,
                           "nationality":req.body.nationality,
+                          "sport_category":req.body.sport_category,
                           "org_location":req.body.org_location,
                           "job_location":req.body.job_location,
                           "playing_since":req.body.playing_since,
@@ -94,7 +94,7 @@ router.post('/login', (req, res, next) => {
 
         }else{
             return res.status(401).json({
-                message: 'Incorrect Email.'
+                message: 'Incorrect Email or Phone Number.'
             })
 
         }
