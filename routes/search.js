@@ -24,12 +24,12 @@ router.post('/', (req, res, next)=> {
             let sql = 'SELECT * FROM users WHERE type = ?';
       
             if (firstName !== '' ) {
-              sql += ' AND firstName = ?';
-              params.push(firstName);
+              sql += ' AND firstName RLIKE ?';
+              params.push('^'+firstName);
             }
             if (nationality !== ''  ) {
-              sql += ' AND nationality = ?';
-              params.push(nationality);
+              sql += ' AND nationality RLIKE ?';
+              params.push('^'+nationality);
             }
             if (sport_category !=='') {
               sql += ' AND sport_category = ?';
