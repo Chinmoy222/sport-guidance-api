@@ -102,7 +102,47 @@ router.post('/login', (req, res, next) => {
     })
 })
 
+//get user list  
 
+router.get('/getAllUsers/:type',(req,res)=>{
+            
+        
+            let type = req.params.type;
+            console.log(type)
+
+            connection.query('SELECT * FROM users WHERE type = ?', [type], (error, result, field) =>{
+            if( result.length > 0){
+                   return res.send({data: result, status: "success"});
+
+            }else{
+                return res.send({data: error, status: "error"});
+    
+              }
+            })
+            
+})
+
+//add rating
+
+router.post('/addRating',(req,res)=>{
+        id = req.body.id ?req.body.id:'';
+        rating = req.body.rating ?req.body.rating:'';
+
+        if(req.body.id ==='' || req.body.rating ==='' ){
+            res.status(500).json({
+                message: 'Try Again ...'
+            })
+        }else{
+            
+            connection.query('UPDATE users SET rating = ? WHERE ID =?',[rating,id],(error,result)=>{
+                if(error){
+                 throw error;   
+                }else{
+                    return res.send({data: " ", status: "success"});
+                }
+            })
+        }
+})
 
 
 module.exports = router;
