@@ -34,7 +34,7 @@ router.post('/signup', (req, res) => {
                           "coaching_since":req.body.coaching_since
                   }
                   let sql = "INSERT INTO users SET ?"
-                  connection.query(sql, user, function (err, data) {             
+                  connection.query(sql, user,  (err, data)=> {             
                           if(err) {
                               console.log(err);
                               return res.send(err.sqlMessage);

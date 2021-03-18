@@ -39,10 +39,12 @@ router.post('/', (req, res, next)=> {
             console.log(sql,params)
       
             connection.query(sql, params, (error, results, fields) => {
-                        console.log(results)
-                        res.send(results);
+                        
                         if(error){
-                            console.log(error)
+                          return res.send({data: error, status: "error"});
+                        }else{
+                          console.log(results)
+                          return res.send({data: result, status: "success"});
                         }
               });
 
