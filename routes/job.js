@@ -75,4 +75,35 @@ router.get('/jobList',(req,res)=>{
         
 })
 
+
+router.post('/apply',(req,res)=>{
+    
+    try{
+        if(req.body.user_id === '' || req.body.job_id === '' ){
+                return res.send('invalid Apply');
+        }else{
+                let apply ={
+                    "user_id":req.body.user_id,
+                    "job_id":req.body.job_id,
+                }
+
+                let sql = "INSERT INTO jobapply SET ?";
+                connection.query(sql,apply,(err,data)=>{
+                    if(err) {
+                        console.log(err);
+                        return res.send(err.sqlMessage);
+                    }
+                    else {
+                        console.log('Job applied');
+                        return res.send({data: data, status: "success"});
+                    }
+                })
+        }
+
+    }catch(err){
+        console.log(err);
+    }    
+    
+})
+
 module.exports = router;
