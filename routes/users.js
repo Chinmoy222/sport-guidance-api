@@ -108,7 +108,6 @@ router.get('/getAllUsers/:type',(req,res)=>{
             
         
             let type = req.params.type;
-            console.log(type)
 
             connection.query('SELECT * FROM users WHERE type = ?', [type], (error, result, field) =>{
             if( result.length > 0){
