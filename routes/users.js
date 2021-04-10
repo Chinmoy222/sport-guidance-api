@@ -144,5 +144,26 @@ router.post('/addRating',(req,res)=>{
         }
 })
 
+//delete user 
+
+
+router.delete('/deleteUser/:id',(req,res)=>{
+    id = req.params.id ? req.params.id:'';
+    console.log('deleted id '+req.params.id)
+    if(id === ''){
+        res.status(500).json({
+            message: 'Try Again ...'
+        })
+    }else{
+        
+        connection.query('DELETE FROM users WHERE ID =?',[id],(error,result)=>{
+            if(error){
+             throw error;   
+            }else{
+                return res.send({data: " ", status: "success"});
+            }
+        })
+    }
+})
 
 module.exports = router;

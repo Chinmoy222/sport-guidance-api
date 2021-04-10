@@ -95,7 +95,7 @@ router.post('/apply',(req,res)=>{
                     }
                     else {
                         console.log('Job applied');
-                        return res.send({data: data, status: "success"});
+                        return res.send({data: data, status: "success"}); 
                     }
                 })
         }
@@ -104,6 +104,27 @@ router.post('/apply',(req,res)=>{
         console.log(err);
     }    
     
+})
+
+//delete job
+
+router.delete('/deleteJob/:id',(req,res)=>{
+    id = req.params.id ? req.params.id:'';
+    console.log('deleted id '+req.params.id)
+    if(id === ''){
+        res.status(500).json({
+            message: 'Try Again ...'
+        })
+    }else{
+        
+        connection.query('DELETE FROM job WHERE job_id =?',[id],(error,result)=>{
+            if(error){
+             throw error;   
+            }else{
+                return res.send({data: " ", status: "success"});
+            }
+        })
+    }
 })
 
 module.exports = router;

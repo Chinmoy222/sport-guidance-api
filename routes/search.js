@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 router.post('/', (req, res, next)=> {
     
     try {
+      // console.log(req.body)
 
         type=req.body.type;
         firstName=req.body.firstName ?req.body.firstName:'';
@@ -21,7 +22,7 @@ router.post('/', (req, res, next)=> {
         }else{
            
             const params = [type];
-            let sql = 'SELECT * FROM users WHERE type = ?';
+            let sql = 'SELECT * FROM users WHERE type = ? ';
       
             if (firstName !== '' ) {
               sql += ' AND firstName RLIKE ?';
@@ -36,6 +37,7 @@ router.post('/', (req, res, next)=> {
               params.push(sport_category);
             }
 
+            sql +="ORDER BY rating DESC";
             console.log(sql,params)
       
             connection.query(sql, params, (error, results, fields) => {
@@ -44,7 +46,7 @@ router.post('/', (req, res, next)=> {
                           return res.send({data: error, status: "error"});
                         }else{
                           console.log(results)
-                          return res.send({data: result, status: "success"});
+                          return res.send({data: results, status: "success"});
                         }
               });
 
