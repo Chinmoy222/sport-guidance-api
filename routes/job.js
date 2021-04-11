@@ -46,34 +46,25 @@ router.post('/jobPost', (req, res)=>{
 
 //get a job
 
-router.get('/jobList',(req,res)=>{
-        let location = req.query.location;
-        console.log(location,'jjj');
+router.get("/jobList/:location", (req, res) => {
+  let location = req.params.location;
+  console.log(location, "jjj");
 
+  let sql = `SELECT * FROM job `;
 
+  if (location !== 'null') {
+    sql += `WHERE location RLIKE '${location}'`;
+    console.log(location, "l");
+  }
 
-        let sql =`SELECT * FROM job `;
-
-        if(location){
-                sql+= `WHERE location = '${location}'`
-                console.log(location,'l')
-        }
-
-            connection.query(sql,  (error, results, fields) => {
-              
-                if(error){
-                
-                  return res.send({data: error, status: "error"});
-                }else{
-                
-                    console.log(results)
-                    return res.send({data: results, status: "success"});
-                }
-      });
-
-        
-        
-})
+  connection.query(sql, (error, results, fields) => {
+    if (error) {
+      return res.send({ data: error, status: "error" });
+    } else {
+      return res.send({ data: results, status: "success" });
+    }
+  });
+});
 
 
 router.post('/apply',(req,res)=>{
