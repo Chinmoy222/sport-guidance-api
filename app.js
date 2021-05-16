@@ -9,9 +9,18 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var searchRouter = require('./routes/search');
 var jobRouter = require('./routes/job');
+var uploadRouter = require("./routes/upload");
+var bodyParser = require("body-parser");
+var multer = require("multer");
+var upload = multer();
+var fileUpload = require("express-fileupload");
 
 var app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(fileUpload());
+//app.use(upload.array());
+app.use(express.static("public"));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,6 +36,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/search',searchRouter);
 app.use('/job',jobRouter);
+app.use("/upload", uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
